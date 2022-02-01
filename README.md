@@ -8,10 +8,18 @@ Buka folder `build` lalu pilih salah satu `gajah` yang sesuai dengan OS yang kam
 
 Lalu, `gajah` itu kamu masukkan ke PATH di laptop kamu. Misalnya kalau Linux, tempatnya di `/usr/bin/`
 
-Lalu, jalankan perintah seperti ini:
+Lalu, buka dua Terminal.
+
+Isi Terminal pertama:
 
 ```bash
-php -S localhost:3000 & gajah 3000
+php -S localhost:3000
+```
+
+Isi Terminal kedua:
+
+```bash
+gajah 3000
 ```
 
 Maka, otomatis semua file PHP akan digenerate menjadi HTML.
