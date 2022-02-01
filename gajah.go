@@ -1,27 +1,27 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"os"
 	"path/filepath"
-	"log"
+	// "log"
+	"strings"
 )
 
 func main(){
 	// Ambil port
-	port := os.Args[1]
-	fmt.Println(port)
+	// port := os.Args[1]
 
 	// Ambil file
-	err := filepath.Walk(".",
-	    func(path string, info os.FileInfo, err error) error {
-	    if err != nil {
-	        return err
-	    }
-	    fmt.Println(path, info.Size())
-	    return nil
+	var semua_file = [] string {}
+	filepath.Walk(".", func(x string, _ os.FileInfo, _ error) error {
+		semua_file = append(semua_file, x)
+		return nil
 	})
-	if err != nil {
-	    log.Println(err)
+	var file_php = [] string {}
+	for n := range semua_file {
+		if strings.Contains(semua_file[n], ".php"){
+			file_php = append(file_php, semua_file[n])
+		}
 	}
 }
