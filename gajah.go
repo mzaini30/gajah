@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	// "log"
 	"io/ioutil"
 	"net/http"
@@ -32,6 +33,10 @@ func main() {
 		data, _ := http.Get("http://localhost:" + port + "/" + file_php[n])
 		isi, _ := ioutil.ReadAll(data.Body)
 		isinya := string(isi)
+
+		aturan_regex := regexp.MustCompile("([a-z0-9]).php")
+		isinya = aturan_regex.ReplaceAllString(isinya, "$1.html")
+
 		nama_file := strings.Replace(file_php[n], ".php", ".html", -1)
 		ioutil.WriteFile(nama_file, []byte(isinya), 0755)
 		proses = proses + 1
