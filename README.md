@@ -4,7 +4,7 @@ Tools untuk generate PHP menjadi HTML.
 
 ## Cara Pakai
 
-Buka releases lalu pilih salah satu `gajah` yang sesuai dengan OS yang kamu gunakan.
+Buka [branch gh-pages](https://github.com/mzaini30/gajah/tree/gh-pages) lalu pilih salah satu `gajah` yang sesuai dengan OS yang kamu gunakan.
 
 Lalu, `gajah` itu kamu masukkan ke PATH di laptop kamu. Misalnya kalau Linux, tempatnya di `/usr/bin/`
 

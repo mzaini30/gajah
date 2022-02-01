@@ -21,7 +21,7 @@ jobs:
           platforms: 'linux/amd64, linux/386, windows/amd64, windows/386'
           package: ''
           name: 'gajah'
-          compress: 'true'
+          compress: 'false'
           dest: 'build'
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
