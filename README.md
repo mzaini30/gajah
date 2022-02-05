@@ -23,3 +23,9 @@ gajah 3000
 ```
 
 Maka, otomatis semua file PHP akan digenerate menjadi HTML.
+
+## Minify
+
+```bash
+gajah 3000 minify
+```

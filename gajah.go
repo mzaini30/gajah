@@ -6,6 +6,13 @@ import (
 	"path/filepath"
 	"regexp"
 	// "log"
+	"github.com/tdewolff/minify/v2"
+	"github.com/tdewolff/minify/v2/css"
+	"github.com/tdewolff/minify/v2/html"
+	"github.com/tdewolff/minify/v2/js"
+	"github.com/tdewolff/minify/v2/json"
+	"github.com/tdewolff/minify/v2/svg"
+	"github.com/tdewolff/minify/v2/xml"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -36,6 +43,24 @@ func main() {
 
 		aturan_regex := regexp.MustCompile("([a-z0-9]).php")
 		isinya = aturan_regex.ReplaceAllString(isinya, "$1.html")
+
+		apakah_minify := os.Args[2]
+		if apakah_minify == "minify" {
+			isinya = strings.Replace(isinya, "<script type=\"module\">", "<script>a;", -1)
+			isinya = strings.Replace(isinya, "<script type='module'>", "<script>a;", -1)
+
+			m := minify.New()
+			m.AddFunc("text/css", css.Minify)
+			m.AddFunc("text/html", html.Minify)
+			m.AddFunc("image/svg+xml", svg.Minify)
+			m.AddFuncRegexp(regexp.MustCompile("^(application|text)/(x-)?(java|ecma)script$"), js.Minify)
+			m.AddFuncRegexp(regexp.MustCompile("[/+]json$"), json.Minify)
+			m.AddFuncRegexp(regexp.MustCompile("[/+]xml$"), xml.Minify)
+			isinya, _ = m.String("text/html", isinya)
+
+			isinya = strings.Replace(isinya, "<script>a,", "<script type=\"module\">", -1)
+			isinya = strings.Replace(isinya, "<script>a;", "<script type=\"module\">", -1)
+		}
 
 		nama_file := strings.Replace(file_php[n], ".php", ".html", -1)
 		ioutil.WriteFile(nama_file, []byte(isinya), 0755)
