@@ -1,5 +1,9 @@
 # Gajah
 
+<p align="center">
+ <img src="https://i.postimg.cc/DZpd1HrW/ade1270e9f707db76889d3d9dc628e5a.jpg">
+</p>
+
 Tools untuk generate PHP menjadi HTML.
 
 ## Cara Pakai
