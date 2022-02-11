@@ -48,6 +48,12 @@ func main() {
 			isinya = strings.Replace(isinya, "<script type=\"module\">", "<script>a;", -1)
 			isinya = strings.Replace(isinya, "<script type='module'>", "<script>a;", -1)
 
+			isinya = strings.Replace(isinya, "<script type=\"magic\">", "<script>b;", -1)
+			isinya = strings.Replace(isinya, "<script type='magic'>", "<script>b;", -1)
+
+			isinya = strings.Replace(isinya, "<script type=\"magic\" data-type=\"module\">", "<script>c;", -1)
+			isinya = strings.Replace(isinya, "<script type='magic' data-type='module'>", "<script>c;", -1)
+
 			m := minify.New()
 			m.AddFunc("text/css", css.Minify)
 			m.AddFunc("text/html", html.Minify)
@@ -59,6 +65,12 @@ func main() {
 
 			isinya = strings.Replace(isinya, "<script>a,", "<script type=\"module\">", -1)
 			isinya = strings.Replace(isinya, "<script>a;", "<script type=\"module\">", -1)
+
+			isinya = strings.Replace(isinya, "<script>b,", "<script type=\"magic\">", -1)
+			isinya = strings.Replace(isinya, "<script>b;", "<script type=\"magic\">", -1)
+
+			isinya = strings.Replace(isinya, "<script>c,", "<script type=\"magic\" data-type=\"module\">", -1)
+			isinya = strings.Replace(isinya, "<script>c;", "<script type=\"magic\" data-type=\"module\">", -1)
 		}
 
 		nama_file := strings.Replace(file_php[n], ".php", ".html", -1)
