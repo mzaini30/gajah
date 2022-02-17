@@ -6,18 +6,33 @@
 
 Tools untuk generate PHP menjadi HTML.
 
+## Struktur Folder
+
+```
+.
+├── build
+│   ├── hello.html
+│   ├── index.html
+└── src
+    ├── hello.php
+    ├── index.php
+
+```
+
+Jadi, kita meletakkan semua file PHP dan file assets di folder `src`.
+
 ## Cara Pakai
 
 Buka [branch gh-pages](https://github.com/mzaini30/gajah/tree/gh-pages) lalu pilih salah satu `gajah` yang sesuai dengan OS yang kamu gunakan.
 
 Lalu, `gajah` itu kamu masukkan ke PATH di laptop kamu. Misalnya kalau Linux, tempatnya di `/usr/bin/`
 
-Lalu, buka dua Terminal.
+Lalu, buka dua Terminal pada folder projectmu.
 
 Isi Terminal pertama:
 
 ```bash
-php -S localhost:3000
+php -S localhost:3000 -t src
 ```
 
 Isi Terminal kedua:

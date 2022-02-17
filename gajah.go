@@ -5,7 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	// "log"
 	"github.com/tdewolff/minify/v2"
 	"github.com/tdewolff/minify/v2/css"
 	"github.com/tdewolff/minify/v2/html"
@@ -14,30 +13,40 @@ import (
 	"github.com/tdewolff/minify/v2/svg"
 	"github.com/tdewolff/minify/v2/xml"
 	"io/ioutil"
+	cp "github.com/otiai10/copy"
 	"net/http"
 	"strings"
 )
 
 func main() {
+	salah := cp.Copy("src", "build")
+	if salah != nil {
+		fmt.Println(salah)
+	}
+
 	// Ambil port
 	port := os.Args[1]
 
-	// Ambil file: file_php
-	var semua_file = []string{}
-	filepath.Walk(".", func(x string, _ os.FileInfo, _ error) error {
-		semua_file = append(semua_file, x)
+	// // Ambil file: filePhp
+	var semuaFile = []string{}
+	filepath.Walk("build", func(x string, _ os.FileInfo, _ error) error {
+		semuaFile = append(semuaFile, x)
 		return nil
 	})
-	var file_php = []string{}
-	for n := range semua_file {
-		if strings.Contains(semua_file[n], ".php") {
-			file_php = append(file_php, semua_file[n])
+	// fmt.Println(semuaFile)
+
+	var filePhp = []string{}
+	for n := range semuaFile {
+		if strings.Contains(semuaFile[n], ".php") {
+			filePhp = append(filePhp, semuaFile[n])
 		}
 	}
+	// fmt.Println(filePhp)
 
 	proses := 0
-	for n := range file_php {
-		data, _ := http.Get("http://localhost:" + port + "/" + file_php[n])
+	for n := range filePhp {
+		filenya := strings.Replace(filePhp[n], "build/", "", -1)
+		data, _ := http.Get("http://localhost:" + port + "/" + filenya)
 		isi, _ := ioutil.ReadAll(data.Body)
 		isinya := string(isi)
 
@@ -73,11 +82,17 @@ func main() {
 			isinya = strings.Replace(isinya, "<script>c;", "<script type=\"magic\" data-type=\"module\">", -1)
 		}
 
-		nama_file := strings.Replace(file_php[n], ".php", ".html", -1)
-		ioutil.WriteFile(nama_file, []byte(isinya), 0755)
+		namaFile := strings.Replace(filePhp[n], ".php", ".html", -1)
+		ioutil.WriteFile(namaFile, []byte(isinya), 0755)
+		// di sini, hapus file php
+		// fmt.Println(filePhp[n])
+		salah := os.Remove(filePhp[n])
+		if salah != nil {
+			fmt.Println(salah)
+		}
 		proses = proses + 1
 	}
-	if proses == len(file_php) {
+	if proses == len(filePhp) {
 		fmt.Println("Gajah selesai")
 	}
 }
