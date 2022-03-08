@@ -19,7 +19,7 @@ import (
 
 func cek(e error) {
 	if e != nil {
-		panic(e)
+		println(e)
 	}
 }
 
