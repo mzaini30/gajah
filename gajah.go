@@ -15,11 +15,12 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"fmt"
 )
 
 func cek(e error) {
 	if e != nil {
-		println(e)
+		fmt.Println(e)
 	}
 }
 
@@ -52,9 +53,9 @@ func main() {
 		}
 	}
 
-	// println("CSS:")
+	// fmt.Println("CSS:")
 	// for n := range fileCss {
-	// 	println(fileCss[n])
+	// 	fmt.Println(fileCss[n])
 	// }
 
 	for n := range fileCss {
@@ -62,7 +63,7 @@ func main() {
 		cek(err)
 		isiString := string(isi)
 
-		// println(isiString)
+		// fmt.Println(isiString)
 
 		m := minify.New()
 		m.AddFunc("text/css", css.Minify)
@@ -70,18 +71,18 @@ func main() {
 		isiString, err = m.String("text/css", isiString)
 		cek(err)
 
-		// println(isiString)
+		// fmt.Println(isiString)
 
 		ioutil.WriteFile(fileCss[n], []byte(isiString), 0755)
 	}
 
-	// println("JS:")
+	// fmt.Println("JS:")
 	for n := range fileJs {
 		isi, err := os.ReadFile(fileJs[n])
 		cek(err)
 		isiString := string(isi)
 
-		// println(isiString)
+		// fmt.Println(isiString)
 
 		m := minify.New()
 		m.AddFunc("text/javascript", js.Minify)
@@ -89,7 +90,7 @@ func main() {
 		isiString, err = m.String("text/javascript", isiString)
 		cek(err)
 
-		// println(isiString)
+		// fmt.Println(isiString)
 
 		ioutil.WriteFile(fileJs[n], []byte(isiString), 0755)
 	}
@@ -141,6 +142,6 @@ func main() {
 		proses = proses + 1
 	}
 	if proses == len(filePhp) {
-		println("Gajah selesai")
+		fmt.Println("Gajah selesai")
 	}
 }
