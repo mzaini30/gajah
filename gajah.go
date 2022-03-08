@@ -15,18 +15,17 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-	"fmt"
 )
 
-func cek(e error) {
-	if e != nil {
-		fmt.Println(e)
-	}
-}
+// func cek(e error) {
+// 	if e != nil {
+// 		panic(e)
+// 	}
+// }
 
 func main() {
-	salah := cp.Copy("src", "build")
-	cek(salah)
+	cp.Copy("src", "build")
+	// cek(salah)
 
 	// Ambil port
 	port := os.Args[1]
@@ -53,44 +52,44 @@ func main() {
 		}
 	}
 
-	// fmt.Println("CSS:")
+	// println("CSS:")
 	// for n := range fileCss {
-	// 	fmt.Println(fileCss[n])
+	// 	println(fileCss[n])
 	// }
 
 	for n := range fileCss {
-		isi, err := os.ReadFile(fileCss[n])
-		cek(err)
+		isi, _ := os.ReadFile(fileCss[n])
+		// cek(err)
 		isiString := string(isi)
 
-		// fmt.Println(isiString)
+		// println(isiString)
 
 		m := minify.New()
 		m.AddFunc("text/css", css.Minify)
 
-		isiString, err = m.String("text/css", isiString)
-		cek(err)
+		isiString, _ = m.String("text/css", isiString)
+		// cek(err)
 
-		// fmt.Println(isiString)
+		// println(isiString)
 
 		ioutil.WriteFile(fileCss[n], []byte(isiString), 0755)
 	}
 
-	// fmt.Println("JS:")
+	// println("JS:")
 	for n := range fileJs {
-		isi, err := os.ReadFile(fileJs[n])
-		cek(err)
+		isi, _ := os.ReadFile(fileJs[n])
+		// cek(err)
 		isiString := string(isi)
 
-		// fmt.Println(isiString)
+		// println(isiString)
 
 		m := minify.New()
 		m.AddFunc("text/javascript", js.Minify)
 
-		isiString, err = m.String("text/javascript", isiString)
-		cek(err)
+		isiString, _ = m.String("text/javascript", isiString)
+		// cek(err)
 
-		// fmt.Println(isiString)
+		// println(isiString)
 
 		ioutil.WriteFile(fileJs[n], []byte(isiString), 0755)
 	}
@@ -137,11 +136,11 @@ func main() {
 		namaFile := strings.Replace(filePhp[n], ".php", ".html", -1)
 		ioutil.WriteFile(namaFile, []byte(isinya), 0755)
 		// di sini, hapus file php
-		salah := os.Remove(filePhp[n])
-		cek(salah)
+		os.Remove(filePhp[n])
+		// cek(salah)
 		proses = proses + 1
 	}
 	if proses == len(filePhp) {
-		fmt.Println("Gajah selesai")
+		println("Gajah selesai")
 	}
 }
