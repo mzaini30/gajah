@@ -17,15 +17,15 @@ import (
 	"strings"
 )
 
-// func cek(e error) {
-// 	if e != nil {
-// 		panic(e)
-// 	}
-// }
+func cek(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
 
 func main() {
-	cp.Copy("src", "build")
-	// cek(salah)
+	salah := cp.Copy("src", "build")
+	cek(salah)
 
 	// Ambil port
 	port := os.Args[1]
@@ -58,8 +58,8 @@ func main() {
 	// }
 
 	for n := range fileCss {
-		isi, _ := os.ReadFile(fileCss[n])
-		// cek(err)
+		isi, err := os.ReadFile(fileCss[n])
+		cek(err)
 		isiString := string(isi)
 
 		// println(isiString)
@@ -67,8 +67,8 @@ func main() {
 		m := minify.New()
 		m.AddFunc("text/css", css.Minify)
 
-		isiString, _ = m.String("text/css", isiString)
-		// cek(err)
+		isiString, err = m.String("text/css", isiString)
+		cek(err)
 
 		// println(isiString)
 
@@ -77,8 +77,8 @@ func main() {
 
 	// println("JS:")
 	for n := range fileJs {
-		isi, _ := os.ReadFile(fileJs[n])
-		// cek(err)
+		isi, err := os.ReadFile(fileJs[n])
+		cek(err)
 		isiString := string(isi)
 
 		// println(isiString)
@@ -86,8 +86,8 @@ func main() {
 		m := minify.New()
 		m.AddFunc("text/javascript", js.Minify)
 
-		isiString, _ = m.String("text/javascript", isiString)
-		// cek(err)
+		isiString, err = m.String("text/javascript", isiString)
+		cek(err)
 
 		// println(isiString)
 
@@ -136,8 +136,8 @@ func main() {
 		namaFile := strings.Replace(filePhp[n], ".php", ".html", -1)
 		ioutil.WriteFile(namaFile, []byte(isinya), 0755)
 		// di sini, hapus file php
-		os.Remove(filePhp[n])
-		// cek(salah)
+		salah := os.Remove(filePhp[n])
+		cek(salah)
 		proses = proses + 1
 	}
 	if proses == len(filePhp) {
