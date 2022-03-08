@@ -1,1 +1,0 @@
-async function excalibur(n,e){const t=new FormData;for(let n in e)t.append(n,e[n]);let s=await fetch(n,{method:"post",body:t},{'Content-Type':"application/x-www-form-urlencoded"});return s}
