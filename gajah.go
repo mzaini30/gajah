@@ -57,41 +57,43 @@ func main() {
 	// 	println(fileCss[n])
 	// }
 
-	for n := range fileCss {
-		isi, err := os.ReadFile(fileCss[n])
-		cek(err)
-		isiString := string(isi)
+	if len(os.Args) == 3 && os.Args[2] == "minify" {
+		for n := range fileCss {
+			isi, err := os.ReadFile(fileCss[n])
+			cek(err)
+			isiString := string(isi)
 
-		// println(isiString)
+			// println(isiString)
 
-		m := minify.New()
-		m.AddFunc("text/css", css.Minify)
+			m := minify.New()
+			m.AddFunc("text/css", css.Minify)
 
-		isiString, err = m.String("text/css", isiString)
-		cek(err)
+			isiString, err = m.String("text/css", isiString)
+			cek(err)
 
-		// println(isiString)
+			// println(isiString)
 
-		ioutil.WriteFile(fileCss[n], []byte(isiString), 0755)
-	}
+			ioutil.WriteFile(fileCss[n], []byte(isiString), 0755)
+		}
 
-	// println("JS:")
-	for n := range fileJs {
-		isi, err := os.ReadFile(fileJs[n])
-		cek(err)
-		isiString := string(isi)
+		// println("JS:")
+		for n := range fileJs {
+			isi, err := os.ReadFile(fileJs[n])
+			cek(err)
+			isiString := string(isi)
 
-		// println(isiString)
+			// println(isiString)
 
-		m := minify.New()
-		m.AddFunc("text/javascript", js.Minify)
+			m := minify.New()
+			m.AddFunc("text/javascript", js.Minify)
 
-		isiString, err = m.String("text/javascript", isiString)
-		cek(err)
+			isiString, err = m.String("text/javascript", isiString)
+			cek(err)
 
-		// println(isiString)
+			// println(isiString)
 
-		ioutil.WriteFile(fileJs[n], []byte(isiString), 0755)
+			ioutil.WriteFile(fileJs[n], []byte(isiString), 0755)
+		}
 	}
 
 	proses := 0
