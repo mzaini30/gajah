@@ -1,0 +1,1 @@
+:root{--merah:red;--kuning:yellow;--hijau:green;--biru:blue}div{background:var(--biru)}body{display:flex;column-gap:3rem}

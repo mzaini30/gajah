@@ -28,7 +28,6 @@
 	<h1>Ini Judul</h1>
 	<a href="hello.php">Menuju hello</a>
 	<a href="hello.php">Menuju hello</a>
-	<?php include './footer.php' ?>
 	<script type="module">
 		import nama from 'nama.js'
 		(() => {

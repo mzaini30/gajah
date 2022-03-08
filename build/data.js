@@ -1,0 +1,1 @@
+const nomor_wa=6281250501330,bank="Aulia Suhesty, bank BNI46, nomor rekening: 028 940 3771",link="https://primasolutions.my.id"

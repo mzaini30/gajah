@@ -1,0 +1,1 @@
+function olah_wa(t,e){return e=e.split("\n").map(e=>e.trimStart()).join("\n"),e=encodeURIComponent(e),`https://api.whatsapp.com/send?phone=${t}&text=${e}`}

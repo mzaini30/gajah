@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
-	"regexp"
+	cp "github.com/otiai10/copy"
 	"github.com/tdewolff/minify/v2"
 	"github.com/tdewolff/minify/v2/css"
 	"github.com/tdewolff/minify/v2/html"
@@ -13,16 +10,22 @@ import (
 	"github.com/tdewolff/minify/v2/svg"
 	"github.com/tdewolff/minify/v2/xml"
 	"io/ioutil"
-	cp "github.com/otiai10/copy"
 	"net/http"
+	"os"
+	"path/filepath"
+	"regexp"
 	"strings"
 )
 
+func cek(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
 func main() {
 	salah := cp.Copy("src", "build")
-	if salah != nil {
-		fmt.Println(salah)
-	}
+	cek(salah)
 
 	// Ambil port
 	port := os.Args[1]
@@ -33,15 +36,63 @@ func main() {
 		semuaFile = append(semuaFile, x)
 		return nil
 	})
-	// fmt.Println(semuaFile)
 
 	var filePhp = []string{}
+	var fileJs = []string{}
+	var fileCss = []string{}
 	for n := range semuaFile {
 		if strings.Contains(semuaFile[n], ".php") {
 			filePhp = append(filePhp, semuaFile[n])
 		}
+		if strings.Contains(semuaFile[n], ".js") {
+			fileJs = append(fileJs, semuaFile[n])
+		}
+		if strings.Contains(semuaFile[n], ".css") {
+			fileCss = append(fileCss, semuaFile[n])
+		}
 	}
-	// fmt.Println(filePhp)
+
+	// println("CSS:")
+	// for n := range fileCss {
+	// 	println(fileCss[n])
+	// }
+
+	for n := range fileCss {
+		isi, err := os.ReadFile(fileCss[n])
+		cek(err)
+		isiString := string(isi)
+
+		// println(isiString)
+
+		m := minify.New()
+		m.AddFunc("text/css", css.Minify)
+
+		isiString, err = m.String("text/css", isiString)
+		cek(err)
+
+		// println(isiString)
+
+		ioutil.WriteFile(fileCss[n], []byte(isiString), 0755)
+	}
+
+	// println("JS:")
+	for n := range fileJs {
+		isi, err := os.ReadFile(fileJs[n])
+		cek(err)
+		isiString := string(isi)
+
+		// println(isiString)
+
+		m := minify.New()
+		m.AddFunc("text/javascript", js.Minify)
+
+		isiString, err = m.String("text/javascript", isiString)
+		cek(err)
+
+		// println(isiString)
+
+		ioutil.WriteFile(fileJs[n], []byte(isiString), 0755)
+	}
 
 	proses := 0
 	for n := range filePhp {
@@ -85,14 +136,11 @@ func main() {
 		namaFile := strings.Replace(filePhp[n], ".php", ".html", -1)
 		ioutil.WriteFile(namaFile, []byte(isinya), 0755)
 		// di sini, hapus file php
-		// fmt.Println(filePhp[n])
 		salah := os.Remove(filePhp[n])
-		if salah != nil {
-			fmt.Println(salah)
-		}
+		cek(salah)
 		proses = proses + 1
 	}
 	if proses == len(filePhp) {
-		fmt.Println("Gajah selesai")
+		println("Gajah selesai")
 	}
 }
