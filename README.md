@@ -48,3 +48,11 @@ Maka, otomatis semua file PHP akan digenerate menjadi HTML.
 ```bash
 gajah 3000 minify
 ```
+
+## Donate
+
+<p align='center'>
+    <a href='https://www.nihbuatjajan.com/mzaini30'>
+        <img src='https://d4xyvrfd64gfm.cloudfront.net/buttons/default-cta.png'/>
+    </a>
+</p>
