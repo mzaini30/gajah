@@ -106,6 +106,8 @@ func main() {
 		aturan_regex := regexp.MustCompile("([a-z0-9]).php")
 		isinya = aturan_regex.ReplaceAllString(isinya, "$1.html")
 
+		isinya = strings.Replace(isinya, "scrappy.html", "scrappy-php", -1)
+
 		if len(os.Args) == 3 && os.Args[2] == "minify" {
 			isinya = strings.Replace(isinya, "<script type=\"module\">", "<script>a;", -1)
 			isinya = strings.Replace(isinya, "<script type='module'>", "<script>a;", -1)
