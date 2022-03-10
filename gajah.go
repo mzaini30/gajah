@@ -44,7 +44,7 @@ func main() {
 		if strings.Contains(semuaFile[n], ".php") {
 			filePhp = append(filePhp, semuaFile[n])
 		}
-		if strings.Contains(semuaFile[n], ".js") {
+		if strings.Contains(semuaFile[n], ".js") && !strings.Contains(semuaFile[n], ".min.js") {
 			fileJs = append(fileJs, semuaFile[n])
 		}
 		if strings.Contains(semuaFile[n], ".css") {
