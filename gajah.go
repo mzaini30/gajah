@@ -118,6 +118,12 @@ func main() {
 			isinya = strings.Replace(isinya, "<script type=\"magic\" data-type=\"module\">", "<script>c;", -1)
 			isinya = strings.Replace(isinya, "<script type='magic' data-type='module'>", "<script>c;", -1)
 
+			isinya = strings.Replace(isinya, "<script type=\"katyusha\">", "<script>d;", -1)
+			isinya = strings.Replace(isinya, "<script type='katyusha'>", "<script>d;", -1)
+
+			isinya = strings.Replace(isinya, "<script type=\"katyushaModule\">", "<script>e;", -1)
+			isinya = strings.Replace(isinya, "<script type='katyushaModule'>", "<script>e;", -1)
+
 			m := minify.New()
 			m.AddFunc("text/css", css.Minify)
 			m.AddFunc("text/html", html.Minify)
@@ -127,14 +133,20 @@ func main() {
 			m.AddFuncRegexp(regexp.MustCompile("[/+]xml$"), xml.Minify)
 			isinya, _ = m.String("text/html", isinya)
 
-			isinya = strings.Replace(isinya, "<script>a,", "<script type=\"module\">", -1)
-			isinya = strings.Replace(isinya, "<script>a;", "<script type=\"module\">", -1)
+			isinya = strings.Replace(isinya, "<script>a,", "<script type=module>", -1)
+			isinya = strings.Replace(isinya, "<script>a;", "<script type=module>", -1)
 
-			isinya = strings.Replace(isinya, "<script>b,", "<script type=\"magic\">", -1)
-			isinya = strings.Replace(isinya, "<script>b;", "<script type=\"magic\">", -1)
+			isinya = strings.Replace(isinya, "<script>b,", "<script type=magic>", -1)
+			isinya = strings.Replace(isinya, "<script>b;", "<script type=magic>", -1)
 
-			isinya = strings.Replace(isinya, "<script>c,", "<script type=\"magic\" data-type=\"module\">", -1)
-			isinya = strings.Replace(isinya, "<script>c;", "<script type=\"magic\" data-type=\"module\">", -1)
+			isinya = strings.Replace(isinya, "<script>c,", "<script type=magic data-type=module>", -1)
+			isinya = strings.Replace(isinya, "<script>c;", "<script type=magic data-type=module>", -1)
+
+			isinya = strings.Replace(isinya, "<script>d,", "<script type=katyusha>", -1)
+			isinya = strings.Replace(isinya, "<script>d;", "<script type=katyusha>", -1)
+
+			isinya = strings.Replace(isinya, "<script>e,", "<script type=katyushaModule>", -1)
+			isinya = strings.Replace(isinya, "<script>e;", "<script type=katyushaModule>", -1)
 		}
 
 		namaFile := strings.Replace(filePhp[n], ".php", ".html", -1)
