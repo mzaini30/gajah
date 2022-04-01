@@ -107,11 +107,11 @@ func main() {
 		isinya = aturan_regex.ReplaceAllString(isinya, "$1.html")
 
 		isinya = strings.Replace(isinya, "scrappy.html.herokuapp.com", "scrappy-php.herokuapp.com", -1)
-		isinya = strings.Replace(isinya, "https://v.gd/create.html?format=simple&url=", "https://v.gd/create.php?format=simple&url=", -1)
-		isinya = strings.Replace(isinya, "https://is.gd/create.html?format=simple&url=", "https://is.gd/create.php?format=simple&url=", -1)
-		isinya = strings.Replace(isinya, "https://vurl.com/api.html?url=", "https://vurl.com/api.php?url=", -1)
-		isinya = strings.Replace(isinya, "https://cutt.us/api.html?url=", "https://vurl.com/api.php?url=", -1)
-		isinya = strings.Replace(isinya, "https://tinyurl.com/api-create.html?url=", "https://tinyurl.com/api-create.php?url=", -1)
+		isinya = strings.Replace(isinya, "v.gd%2Fcreate.html", "v.gd%2Fcreate.php", -1)
+		isinya = strings.Replace(isinya, "is.gd%2Fcreate.html", "is.gd%2Fcreate.php", -1)
+		isinya = strings.Replace(isinya, "vurl.com%2Fapi.html", "vurl.com%2Fapi.php", -1)
+		isinya = strings.Replace(isinya, "cutt.us/api.html?url", "cutt.us/api.php?url", -1)
+		isinya = strings.Replace(isinya, "tinyurl.com/api-create.html", "tinyurl.com/api-create.php", -1)
 
 		if len(os.Args) == 3 && os.Args[2] == "minify" {
 			isinya = strings.Replace(isinya, "<script type=\"module\">", "<script>a;", -1)
