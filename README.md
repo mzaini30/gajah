@@ -49,6 +49,27 @@ Maka, otomatis semua file PHP akan digenerate menjadi HTML.
 gajah 3000 minify
 ```
 
+## Pengecualian Convert PHP
+
+Pada dasarnya, dia akan meng-convert semua teks `php` menjadi `html` pada file-file `php`. Contohnya seperti ini:
+
+```html
+<a href="about.php">menuju about</a>
+```
+
+Maka, dia akan berubah menjadi:
+
+```html
+<a href="about.html">menuju about</a>
+```
+
+Untuk mencegahnya, kita buat file `ignore.txt` yang berisi dengan teks-teks yang nggak boleh diconvert jadi `.html`. Contoh isinya:
+
+```
+satu.php
+about.php?hai
+```
+
 ## Donate
 
 <p align='center'>
