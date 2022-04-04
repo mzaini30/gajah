@@ -70,6 +70,18 @@ satu.php
 about.php?hai
 ```
 
+## File dan Folder yang Dikecualikan
+
+Saat menyalin semua file dan folder dari `src/` ke `build/`, ada beberapa file dan folder yang dikecualikan, yaitu:
+
+- .gitignore
+- vendor
+- composer.json
+- composer.lock
+- node_modules
+- package.json
+- pnpm-lock.yaml
+
 ## Donate
 
 <p align='center'>

@@ -24,9 +24,11 @@ func cek(e error) {
 }
 
 func main() {
+	var re = regexp.MustCompile(`\.gitignore|vendor|composer\.json|composer\.lock|node_modules|package\.json|pnpm-lock\.yaml`)
 	opt := cp.Options {
 		Skip: func(src string) (bool, error) {
-			return strings.HasSuffix(src, "node_modules"), nil
+			// return strings.HasSuffix(src, "node_modules"), nil
+			return re.MatchString(src), nil
 		},
 	}
 	salah := cp.Copy("src", "build", opt)
@@ -48,7 +50,7 @@ func main() {
 
 	pengecualianHtml := []string{}
 	for n := range pengecualian {
-		aturan_regex := regexp.MustCompile("([a-z0-9]).php")
+		aturan_regex := regexp.MustCompile(`([a-z0-9])\.php`)
 		jadiHtml := aturan_regex.ReplaceAllString(pengecualian[n], "$1.html")
 		pengecualianHtml = append(pengecualianHtml, jadiHtml)
 	}
@@ -133,19 +135,12 @@ func main() {
 		isinya := string(isi)
 
 		// kasih "pengecualian" dan "pengecualianHtml" (array) di sini
-		aturan_regex := regexp.MustCompile("([a-z0-9]).php")
+		aturan_regex := regexp.MustCompile(`([a-z0-9])\.php`)
 		isinya = aturan_regex.ReplaceAllString(isinya, "$1.html")
 
 		for n := range pengecualian {
 			isinya = strings.Replace(isinya, pengecualianHtml[n], pengecualian[n], -1)
 		}
-
-		// isinya = strings.Replace(isinya, "scrappy.html.herokuapp.com", "scrappy-php.herokuapp.com", -1)
-		// isinya = strings.Replace(isinya, "v.gd%2Fcreate.html", "v.gd%2Fcreate.php", -1)
-		// isinya = strings.Replace(isinya, "is.gd%2Fcreate.html", "is.gd%2Fcreate.php", -1)
-		// isinya = strings.Replace(isinya, "vurl.com%2Fapi.html", "vurl.com%2Fapi.php", -1)
-		// isinya = strings.Replace(isinya, "cutt.us/api.html?url", "cutt.us/api.php?url", -1)
-		// isinya = strings.Replace(isinya, "tinyurl.com/api-create.html", "tinyurl.com/api-create.php", -1)
 
 		if len(os.Args) == 3 && os.Args[2] == "minify" {
 			isinya = strings.Replace(isinya, "<script type=\"module\">", "<script>a;", -1)
