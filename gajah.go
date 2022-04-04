@@ -24,7 +24,12 @@ func cek(e error) {
 }
 
 func main() {
-	salah := cp.Copy("src", "build")
+	opt := cp.Options {
+		Skip: func(src string) (bool, error) {
+			return strings.HasSuffix(src, "node_modules"), nil
+		},
+	}
+	salah := cp.Copy("src", "build", opt)
 	cek(salah)
 
 	pengecualian := []string{}
@@ -68,7 +73,7 @@ func main() {
 		if strings.Contains(semuaFile[n], ".php") {
 			filePhp = append(filePhp, semuaFile[n])
 		}
-		if strings.Contains(semuaFile[n], ".js") && !strings.Contains(semuaFile[n], ".min.js") {
+		if strings.Contains(semuaFile[n], ".js") && !strings.Contains(semuaFile[n], ".min.js") && !strings.Contains(semuaFile[n], ".json") {
 			fileJs = append(fileJs, semuaFile[n])
 		}
 		if strings.Contains(semuaFile[n], ".css") {
